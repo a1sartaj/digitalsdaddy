@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand Core Colors */
+  --brand-primary: #355396;
+  /* Regal Blue */
+  --brand-primary-hover: #2a437a;
+  --brand-secondary: #a67c00;
+  /* Warm Gold */
+  --brand-secondary-hover: #8e6900;
+
+  /* Base Surface & Layout Variables */
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card-bg: #ffffff;
+  --card-border: rgba(53, 83, 150, 0.12);
+  --muted-text: #64748b;
+  --backdrop-blur: rgba(248, 250, 252, 0.85);
+
+  /* Scrollbar Variables */
+  --scrollbar-track: #e2e8f0;
+  --scrollbar-thumb: #355396;
+  --scrollbar-thumb-hover: #a67c00;
+}
+
+/* Tailwind CSS v4 Custom Theme Inline Tokens */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-[#355396]: var(--brand-primary);
+  --color-[#a67c00]: var(--brand-secondary);
+}
+
+/* Base Body Styling */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Redesigned Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+  border: 2px solid var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
