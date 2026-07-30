@@ -10,14 +10,18 @@ import InsightsSection from "@/features/home/components/InsightsSection";
 import FaqSection from "@/features/home/components/FaqSection";
 import GetInTouchSection from "@/features/home/components/GetInTouchSection";
 import ProjectDeliverSection from "@/features/home/components/ProjectDeliverSection";
+import StatsSection from "@/features/home/components/StatsSection";
+import BrandingSection from "@/features/home/components/BrandingSection";
 
 export default function Home() {
     return (
         <>
             <Hero />
+            <StatsSection />
             <CompanySlider />
             <WhatWeDoSection />
             <WhoWeAreSection />
+            <BrandingSection />
             <HowWeWorkSection />
             <WhyChooseUsSection />
             <TechStackSection />

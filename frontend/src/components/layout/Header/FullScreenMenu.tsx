@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ArrowUpRight, Phone, MapPin, Globe, ChevronRight } from "lucide-react";
+import logo2 from "@/assets/images/logo/logo-2.png";
 import logo from "@/assets/images/logo/logo.png";
 import { navbarData, menuOverlayData, NavItem } from "@/assets/data/navbar/navbarData";
 
@@ -54,11 +55,11 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
       <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-8 flex items-center justify-between relative z-10 pb-4 sm:pb-6 border-b border-[#355396]/30 shrink-0">
         <Link href="/" onClick={onClose} className="group shrink-0 relative">
           <Image
-            src={logo}
+            src={logo2}
             alt="DigitalsDaddy Logo"
             width={140}
             height={75}
-            className="w-24 sm:w-[130px] h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            className="w-24 md:w-50 h-auto object-contain transition-transform duration-300 group-hover:scale-105"
             priority
           />
         </Link>
@@ -77,8 +78,7 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
       </div>
 
       {/* ──── 2. OVERLAY MAIN GRID (Max-width: 1440px / max-w-360) ──── */}
-      <div className="w-full max-w-[1440px] mx-auto px-4 lg:px-8 my-auto py-6 sm:py-8 lg:py-10 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-        
+      <div className="w-full max-w-[1440px] mx-auto px-4 lg:px-8 my-auto py-6 sm:py-8 lg:py-10 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start ">
         {/* LEFT COLUMN: CATEGORY NAVIGATION (4 COLS) */}
         <div className="lg:col-span-4 flex flex-col items-start gap-1 sm:gap-2 w-full">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#a67c00]/10 border border-[#a67c00]/30 mb-2">
@@ -129,22 +129,20 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
                   type="button"
                   onClick={() => setActiveSlug(item.slug)}
                   onMouseEnter={() => setActiveSlug(item.slug)}
-                  className={`group relative flex items-center justify-between w-full py-2.5 sm:py-3 transition-all duration-300 border-b cursor-pointer text-left ${
-                    isActive
-                      ? "border-[#a67c00]/50 text-[#a67c00] pl-2 sm:pl-3 bg-white/[0.02]"
-                      : "border-white/5 text-slate-300 hover:text-white hover:pl-2"
-                  }`}
+                  className={`group relative flex items-center justify-between w-full py-2.5 sm:py-3 transition-all duration-300 border-b cursor-pointer text-left ${isActive
+                    ? "border-[#a67c00]/50 text-[#a67c00] pl-2 sm:pl-3 bg-white/[0.02]"
+                    : "border-white/5 text-slate-300 hover:text-white hover:pl-2"
+                    }`}
                 >
                   <span className="text-lg sm:text-xl lg:text-2xl font-semibold tracking-[1px] uppercase transition-transform duration-300">
                     {item.label}
                   </span>
 
                   <div
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                      isActive
-                        ? "bg-[#a67c00] text-white opacity-100 translate-x-0"
-                        : "opacity-0 -translate-x-2 text-slate-400"
-                    }`}
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${isActive
+                      ? "bg-[#a67c00] text-white opacity-100 translate-x-0"
+                      : "opacity-0 -translate-x-2 text-slate-400"
+                      }`}
                   >
                     <ChevronRight className="w-4 h-4" />
                   </div>
@@ -154,8 +152,8 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
           })}
         </div>
 
-        {/* CENTER COLUMN: DYNAMIC DECK */}
-        <div className="lg:col-span-5 h-auto lg:h-[480px] bg-[#131d33]/80 backdrop-blur-md border border-[#355396]/40 p-6 sm:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden shadow-2xl w-full shrink-0">
+        {/* RIGHT COLUMN: DYNAMIC DECK */}
+        <div className="lg:col-span-8 h-auto lg:h-[480px] bg-[#131d33]/80 backdrop-blur-md border border-[#355396]/40 p-6 sm:p-8 rounded-3xl flex flex-col justify-between relative overflow-hidden shadow-2xl w-full shrink-0">
           <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#355396] via-[#a67c00] to-[#355396]" />
 
           <AnimatePresence mode="wait">
@@ -219,67 +217,7 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
               )}
             </motion.div>
           </AnimatePresence>
-        </div>
 
-        {/* RIGHT COLUMN: QUICK CONTACT INFO */}
-        <div className="lg:col-span-3 h-auto lg:h-[480px] flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[#355396]/30 pt-6 lg:pt-0 lg:pl-8 w-full shrink-0">
-          <div className="flex flex-col items-start gap-4 sm:gap-6 w-full">
-            <span className="text-[14px] font-semibold tracking-[2px] uppercase text-[#a67c00]">
-              {contactDirectory.title}
-            </span>
-
-            <div className="flex flex-col gap-5 text-[14px] text-slate-300 w-full font-normal">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#355396]/20 border border-[#355396]/40 flex items-center justify-center text-[#a67c00] shrink-0">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-white tracking-[0.5px]">
-                    {contactDirectory.location.country}
-                  </span>
-                  <span className="text-slate-400 text-[14px] tracking-[0.5px]">
-                    {contactDirectory.location.address}
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#355396]/20 border border-[#355396]/40 flex items-center justify-center text-[#a67c00] shrink-0">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <a
-                  href={`tel:${contactDirectory.phone.raw}`}
-                  className="hover:text-[#a67c00] transition-colors font-medium text-[14px] tracking-[1px]"
-                >
-                  {contactDirectory.phone.display}
-                </a>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#355396]/20 border border-[#355396]/40 flex items-center justify-center text-[#a67c00] shrink-0">
-                  <Globe className="w-4 h-4" />
-                </div>
-                <a
-                  href={contactDirectory.website.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-slate-300 hover:text-[#a67c00] transition-colors text-[14px] tracking-[0.5px]"
-                >
-                  {contactDirectory.website.display}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Main CTA Button: Uses px-8 py-4 and min 14px text */}
-          <Link
-            href={contactDirectory.cta.href}
-            onClick={onClose}
-            className="group relative overflow-hidden inline-flex items-center justify-between w-full px-8 py-4 rounded-full bg-[#a67c00] hover:bg-[#8e6900] text-white text-[14px] font-semibold tracking-[2px] uppercase transition-all duration-300 shadow-xl shadow-[#a67c00]/20 active:scale-95 shrink-0 mt-6 lg:mt-0"
-          >
-            <span>{contactDirectory.cta.label}</span>
-            <ArrowUpRight className="w-4 h-4 text-white transform transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
         </div>
       </div>
 

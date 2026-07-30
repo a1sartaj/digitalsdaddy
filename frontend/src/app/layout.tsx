@@ -4,16 +4,18 @@ import Header from "@/components/layout/Header/Header";
 import Footer from "@/components/layout/Footer/Footer";
 import { Roboto, Special_Gothic } from 'next/font/google'
 
-const roboto = Roboto({
+export const roboto = Roboto({
     subsets: ['latin'],
     weight: ['400'],
-    variable: '--font-roboto'
+    variable: '--font-roboto',
 })
 
-const century = Special_Gothic({
+export const century = Special_Gothic({
     subsets: ['latin'],
     weight: ['400'],
-    variable: '--font-century'
+    variable: '--font-century',
+    adjustFontFallback: false, // Disables metric calculation to fix the warning
+    fallback: ['sans-serif'],   // Explicit fallback font family
 })
 
 

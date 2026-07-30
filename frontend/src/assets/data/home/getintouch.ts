@@ -1,16 +1,16 @@
-export interface ContactChannel {
-    type: string;
-    label: string;
-    value: string;
-    href: string;
-    iconName: string;
+export interface SupportFeature {
+    title: string;
+    iconName: "Headphones" | "Clock" | "ShieldCheck";
+    accentHex: "#a67c00" | "#355396";
 }
 
-export interface OfficeLocation {
-    city: string;
-    regionTag: string;
-    address: string;
-    phone?: string;
+export interface SupportInfo {
+    image: string;
+    imageAlt: string;
+    statusBadge: string;
+    overlayTitle: string;
+    overlaySubtitle: string;
+    features: SupportFeature[];
 }
 
 export interface GetInTouchData {
@@ -25,8 +25,7 @@ export interface GetInTouchData {
         suffix: string;
     };
     subtitle: string;
-    channels: ContactChannel[];
-    offices: OfficeLocation[];
+    supportInfo: SupportInfo;
     servicesList: string[];
     cta: {
         label: string;
@@ -47,49 +46,31 @@ export const getInTouchData: GetInTouchData = {
     },
     subtitle:
         "Whether you need an enterprise web application, custom AI agents, or performance ad scaling, our engineering team is ready to assist.",
-    channels: [
-        {
-            type: "email",
-            label: "Email Us",
-            value: "hello@digitalsdaddy.in",
-            href: "mailto:hello@digitalsdaddy.in",
-            iconName: "Mail",
-        },
-        {
-            type: "phone",
-            label: "Head Office Phone",
-            value: "0124 4973371",
-            href: "tel:01244973371",
-            iconName: "Phone",
-        },
-        {
-            type: "whatsapp",
-            label: "Direct & WhatsApp",
-            value: "+91 98182 86609",
-            href: "https://wa.me/919818286609",
-            iconName: "MessageSquare",
-        },
-    ],
-    offices: [
-        {
-            city: "Delhi NCR",
-            regionTag: "Head Office",
-            address: "BVM Marge, DLF 2, Cyber City, Gurgaon, India",
-            phone: "0124 4973371",
-        },
-        {
-            city: "Mumbai",
-            regionTag: "West India Office",
-            address: "1204, One BKC, Bandra Kurla Complex, Mumbai, Maharashtra — 400051",
-            phone: "+91 98182 86609",
-        },
-        {
-            city: "Bangalore",
-            regionTag: "South India Office",
-            address: "WeWork Embassy, Koramangala, Bangalore, Karnataka — 560034",
-            phone: "+91 98182 86609",
-        },
-    ],
+    supportInfo: {
+        image: "/images/customer-support.png",
+        imageAlt: "Dedicated Customer Support Specialist",
+        statusBadge: "SUPPORT TEAM ONLINE",
+        overlayTitle: "24/7 Dedicated Assistance",
+        overlaySubtitle:
+            "Our technical and growth specialists are standing by to guide your digital strategy.",
+        features: [
+            {
+                title: "Direct Access to Senior Engineers & Leads",
+                iconName: "Headphones",
+                accentHex: "#355396",
+            },
+            {
+                title: "Guaranteed Sub-1 Hour Response Time",
+                iconName: "Clock",
+                accentHex: "#a67c00",
+            },
+            {
+                title: "Strict NDA & Data Privacy Standards",
+                iconName: "ShieldCheck",
+                accentHex: "#355396",
+            },
+        ],
+    },
     servicesList: [
         "Full-Stack Web Dev (Next.js/MERN)",
         "AI Agents & Autonomous Workflows",

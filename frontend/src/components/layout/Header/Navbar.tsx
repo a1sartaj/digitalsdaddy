@@ -30,7 +30,7 @@ export default function Navbar() {
                             alt={navbarHeaderData.logo.alt}
                             width={navbarHeaderData.logo.width}
                             height={navbarHeaderData.logo.height}
-                            className="w-24 sm:w-[125px] h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                            className="w-24 md:w-50 h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                             priority
                         />
                         <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#a67c00] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

@@ -1,19 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Sparkles,
   Phone,
   Mail,
   MapPin,
-  ArrowUpRight,
   MessageSquare,
-  Calendar,
+  Send,
 } from "lucide-react";
 import { footerData } from "@/assets/data/footer/footer";
-import { FaLinkedin, FaInstagram, FaTwitter, FaFacebook, FaYoutube } from "react-icons/fa";
-
+import {
+  FaLinkedin,
+  FaInstagram,
+  FaTwitter,
+  FaFacebook,
+  FaYoutube,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 // Dynamic Social Icon Switcher
 const renderSocialIcon = (iconName: string) => {
@@ -35,6 +41,14 @@ const renderSocialIcon = (iconName: string) => {
 };
 
 export default function Footer() {
+  const [chatMessage, setChatMessage] = useState(
+    footerData.quickActions.message
+  );
+
+  const directWhatsAppUrl = `${footerData.quickActions.whatsAppHref}?text=${encodeURIComponent(
+    chatMessage
+  )}`;
+
   return (
     <footer className="relative bg-[#090d16] text-white overflow-hidden border-t border-white/10 transition-colors duration-300 select-none">
 
@@ -45,18 +59,27 @@ export default function Footer() {
       {/* Constraints: Max-width 1600px / max-w-400, Padding: px-4 lg:px-8 */}
       <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-8 relative z-10 pt-16 pb-12 space-y-12">
 
-        {/* 1. TOP HEADER STRIP: FAST CONTACT CHANNELS */}
+        {/* 1. TOP HEADER STRIP: LOGO, TAGLINE & HEADQUARTERS LOCATION */}
         <div className="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col lg:flex-row lg:items-center justify-between gap-6">
 
           {/* Brand Logo & Tagline */}
-          <div className="space-y-1">
-            <Link href="/" className="inline-flex items-center gap-2">
-              <span className="text-[24px] sm:text-[28px] font-semibold tracking-[1px] text-white">
-                Digitals<span className="text-[#a67c00]">Daddy</span>
-              </span>
+          <div className="space-y-2 w-full max-w-lg">
+            <Link
+              href="/"
+              className="inline-block relative p-2.5 rounded-xl bg-[var(--background)] border border-white/10 shadow-sm"
+            >
+              <Image
+                src={footerData.brand.logoPath}
+                alt={footerData.brand.logoAlt}
+                priority
+                width={200}
+                height={54}
+                className="w-48 h-12 object-contain"
+              />
             </Link>
-            <p className="text-[14px] text-slate-300 font-normal tracking-[0.5px]">
-              {footerData.brand.tagline}
+
+            <p className="text-[14px] text-slate-300 font-normal leading-relaxed tracking-[0.5px]">
+              {footerData.brand.description}
             </p>
           </div>
 
@@ -90,7 +113,7 @@ export default function Footer() {
               <div className="p-2 rounded-xl bg-[#355396]/30 text-[#a67c00]">
                 <MapPin className="w-4 h-4" />
               </div>
-              <span className="font-normal tracking-[0.5px] max-w-xs truncate">
+              <span className="font-normal tracking-[0.5px] max-w-xs">
                 {footerData.topBarContacts.address}
               </span>
             </div>
@@ -101,61 +124,8 @@ export default function Footer() {
         {/* 2. MAIN FOOTER CONTENT GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pt-4">
 
-          {/* LEFT BRAND SUMMARY & SOCIALS (4 COLS) */}
-          <div className="lg:col-span-4 space-y-6">
-            <p className="text-[14px] text-slate-300 font-normal leading-relaxed tracking-[0.5px] max-w-sm">
-              {footerData.brand.description}
-            </p>
-
-            {/* Social Links */}
-            <div className="space-y-3">
-              <span className="text-[14px] font-semibold tracking-[2px] uppercase text-[#a67c00] block">
-                Follow Us
-              </span>
-              <div className="flex items-center gap-2.5">
-                {footerData.socials.map((social) => (
-                  <a
-                    key={social.platform}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Follow DigitalsDaddy on ${social.platform}`}
-                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#a67c00] hover:bg-[#a67c00] text-slate-200 hover:text-white flex items-center justify-center transition-all duration-300"
-                  >
-                    {renderSocialIcon(social.iconName)}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Contact Locations Summary */}
-            <div className="pt-4 border-t border-white/10 space-y-2">
-              <span className="text-[14px] font-semibold tracking-[2px] uppercase text-[#a67c00] block">
-                Regional Contact Hubs
-              </span>
-              <div className="space-y-1.5 text-[14px]">
-                {footerData.cityContacts.map((contact) => (
-                  <div
-                    key={contact.city}
-                    className="flex items-center justify-between text-slate-300"
-                  >
-                    <span className="font-medium tracking-[0.5px]">
-                      {contact.city}:
-                    </span>
-                    <a
-                      href={contact.href}
-                      className="hover:text-[#a67c00] transition-colors font-normal tracking-[0.5px]"
-                    >
-                      {contact.phone}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* DYNAMIC NAVIGATION LINK GROUPS (8 COLS) */}
-          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
+          {/* LEFT SIDE: DYNAMIC NAVIGATION LINK GROUPS (7 COLS) */}
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-8">
             {footerData.linkGroups.map((group) => (
               <div key={group.title} className="space-y-4">
                 <h3 className="text-[16px] font-semibold text-white tracking-[1px]">
@@ -180,33 +150,158 @@ export default function Footer() {
             ))}
           </div>
 
+          {/* RIGHT SIDE: SOCIALS & REGIONAL OFFICES (5 COLS) */}
+          <div className="lg:col-span-5 space-y-6">
+
+            {/* Social Links */}
+            <div className="space-y-3">
+              <span className="text-[14px] font-semibold tracking-[2px] uppercase text-[#a67c00] block">
+                Follow Us
+              </span>
+              <div className="flex items-center gap-2.5">
+                {footerData.socials.map((social) => (
+                  <a
+                    key={social.platform}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Follow DigitalsDaddy on ${social.platform}`}
+                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#a67c00] hover:bg-[#a67c00] text-slate-200 hover:text-white flex items-center justify-center transition-all duration-300"
+                  >
+                    {renderSocialIcon(social.iconName)}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Regional Offices List */}
+            <div className="pt-6 border-t border-white/10 space-y-4">
+              <span className="text-[14px] font-semibold tracking-[2px] uppercase text-[#a67c00] block">
+                Our Regional Hubs
+              </span>
+              <div className="space-y-3">
+                {footerData.offices.slice(1).map((office) => (
+                  <div
+                    key={office.city}
+                    className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-1.5"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[14px] font-semibold text-white tracking-[0.5px]">
+                        {office.city}
+                      </span>
+                      <span className="text-[11px] font-medium tracking-[1px] uppercase bg-[#a67c00]/20 text-[#a67c00] border border-[#a67c00]/30 px-2.5 py-0.5 rounded-full">
+                        {office.regionTag}
+                      </span>
+                    </div>
+
+                    <p className="text-[13px] text-slate-300 font-normal leading-relaxed tracking-[0.5px]">
+                      {office.address}
+                    </p>
+
+                    <a
+                      href={`tel:${office.phone.replace(/\s+/g, "")}`}
+                      className="text-[13px] text-[#355396] hover:text-[#a67c00] font-medium tracking-[0.5px] block transition-colors"
+                    >
+                      Tel: {office.phone}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
-        {/* 3. QUICK ACTIONS & DISCLAIMER STRIP */}
+        {/* 3. QUICK ACTIONS & HOVER WHATSAPP CHAT POPUP */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[14px] text-slate-400">
 
           <p className="text-[14px] font-normal tracking-[0.5px] max-w-2xl text-center md:text-left">
             {footerData.legal.disclaimer}
           </p>
 
-          <div className="flex items-center gap-4 shrink-0">
+          {/* RIGHT SIDE: WHATSAPP TRIGGER & DYNAMIC HOVER CARD */}
+          <div className="relative group shrink-0">
+
+            {/* Main Trigger Button */}
             <a
-              href={footerData.quickActions.whatsAppHref}
+              href={directWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 font-medium text-[14px] tracking-[1px] hover:bg-emerald-600 hover:text-white transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 font-semibold text-[14px] tracking-[1px] hover:bg-emerald-600 hover:text-white transition-all shadow-lg shadow-emerald-950/20 cursor-pointer"
             >
-              <MessageSquare className="w-3.5 h-3.5" />
+              <FaWhatsapp className="w-4 h-4 text-emerald-400 group-hover:text-white transition-colors" />
               <span>{footerData.quickActions.whatsAppLabel}</span>
             </a>
 
-            <Link
-              href={footerData.quickActions.scheduleCallHref}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#355396]/30 border border-[#355396]/50 text-white font-medium text-[14px] tracking-[1px] hover:bg-[#355396] transition-all"
-            >
-              <Calendar className="w-3.5 h-3.5 text-[#a67c00]" />
-              <span>{footerData.quickActions.scheduleCallLabel}</span>
-            </Link>
+            {/* HIGH-UX WHATSAPP HOVER CHAT CARD CONTAINER */}
+            <div className="absolute bottom-full right-0 w-[300px] pb-3 pointer-events-none group-hover:pointer-events-auto z-50">
+
+              {/* INVISIBLE HOVER BRIDGE: Prevents hover loss when moving mouse across the gap */}
+              <div className="rounded-2xl bg-[#111b21] border border-emerald-500/30 shadow-2xl overflow-hidden opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+
+                {/* Header */}
+                <div className="bg-[#075e54] p-3.5 flex items-center gap-3 text-white">
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden bg-white/10 shrink-0 border border-white/20">
+                    {footerData.quickActions.supportAvatar ? (
+                      <Image
+                        src={footerData.quickActions.supportAvatar}
+                        alt="DigitalsDaddy Support"
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={footerData.brand.logoPath}
+                        alt="DigitalsDaddy Logo"
+                        fill
+                        className="object-contain p-1"
+                      />
+                    )}
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-[14px] font-semibold leading-tight">
+                      Digitals Daddy
+                    </span>
+                    <span className="text-[11px] text-emerald-200/90 font-medium">
+                      Typically replies instantly
+                    </span>
+                  </div>
+                </div>
+
+                {/* Chat Body Pattern */}
+                <div className="p-4 bg-[#0b141a] space-y-3 min-h-[110px] flex flex-col justify-end">
+                  <div className="self-start max-w-[85%] bg-[#202c33] text-slate-100 p-3 rounded-2xl rounded-tl-xs text-[13px] leading-relaxed shadow-sm space-y-1">
+                    <p>{chatMessage}</p>
+                    <span className="text-[9px] text-slate-400 block text-right">
+                      Just now
+                    </span>
+                  </div>
+                </div>
+
+                {/* Footer Input Strip */}
+                <div className="p-2.5 bg-[#202c33] border-t border-white/5 flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={chatMessage}
+                    onChange={(e) => setChatMessage(e.target.value)}
+                    placeholder="Type a message..."
+                    className="flex-1 bg-[#2a3942] text-slate-100 text-[13px] px-3 py-2 rounded-xl focus:outline-none placeholder-slate-400"
+                  />
+                  <a
+                    href={directWhatsAppUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-xl bg-[#00a884] text-white flex items-center justify-center hover:bg-[#008f6f] transition-colors shrink-0"
+                  >
+                    <Send className="w-4 h-4" />
+                  </a>
+                </div>
+
+              </div>
+            </div>
+
           </div>
 
         </div>

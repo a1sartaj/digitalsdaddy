@@ -69,8 +69,8 @@ export const whoWeAreData: WhoWeAreData = {
         ],
     },
     stats: [
-        { value: "15+", label: "Years in Business" },
-        { value: "500+", label: "Projects Delivered" },
+        { value: "10+", label: "Years in Business" },
+        { value: "2608+", label: "Projects Delivered" },
         { value: "98%", label: "Client Retention" },
     ],
     pillars: [

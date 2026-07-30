@@ -1,31 +1,32 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
     Sparkles,
-    Mail,
-    Phone,
-    MessageSquare,
-    MapPin,
     Send,
     CheckCircle2,
+    Headphones,
+    Clock,
+    ShieldCheck,
 } from "lucide-react";
 import { getInTouchData } from "@/assets/data/home/getintouch";
 
-// Dynamic Contact Icon Switcher
-const renderContactIcon = (iconName: string) => {
-    const iconProps = { className: "w-5 h-5 text-[#355396]" };
+// Dynamic Support Feature Icon Switcher
+const renderSupportIcon = (iconName: string, isGold: boolean) => {
+    const iconProps = {
+        className: `w-4 h-4 ${isGold ? "text-[#a67c00]" : "text-[#355396]"}`,
+    };
     switch (iconName) {
-        case "Mail":
-            return <Mail {...iconProps} />;
-        case "Phone":
-            return <Phone {...iconProps} />;
-        case "MessageSquare":
-            return <MessageSquare {...iconProps} />;
+        case "Headphones":
+            return <Headphones {...iconProps} />;
+        case "Clock":
+            return <Clock {...iconProps} />;
+        case "ShieldCheck":
+            return <ShieldCheck {...iconProps} />;
         default:
-            return <Mail {...iconProps} />;
+            return <Headphones {...iconProps} />;
     }
 };
 
@@ -43,7 +44,6 @@ export default function GetInTouchSection() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitted(true);
-        // Add custom submission or API dispatch logic here
     };
 
     return (
@@ -82,83 +82,71 @@ export default function GetInTouchSection() {
                     </p>
                 </header>
 
-                {/* ──── TWO COLUMN WORKSPACE: INFO + INTERACTIVE FORM ──── */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                {/* ──── TWO COLUMN WORKSPACE: SUPPORT SPOTLIGHT + FORM ──── */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
 
-                    {/* LEFT SIDE: CHANNELS & OFFICE HUB (5 COLS) */}
-                    <div className="lg:col-span-5 space-y-8">
+                    {/* LEFT SIDE: CUSTOMER SUPPORT SPOTLIGHT (5 COLS) */}
+                    <div className="lg:col-span-5 relative">
+                        <div className="relative rounded-3xl overflow-hidden border border-[var(--card-border)] bg-[var(--card-bg)] shadow-xl p-6 sm:p-8 space-y-6">
 
-                        {/* Direct Contact Cards */}
-                        <div className="space-y-4">
-                            <h3 className="text-[20px] font-semibold text-[var(--foreground)] tracking-[0.5px]">
-                                Direct Communication Channels
-                            </h3>
+                            {/* Image Container */}
+                            <div className="relative w-full h-[320px] sm:h-[380px] rounded-2xl overflow-hidden bg-slate-900 group">
+                                <Image
+                                    src={getInTouchData.supportInfo.image}
+                                    alt={getInTouchData.supportInfo.imageAlt}
+                                    fill
+                                    priority
+                                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                />
 
-                            <div className="grid grid-cols-1 gap-3">
-                                {getInTouchData.channels.map((channel) => (
-                                    <a
-                                        key={channel.type}
-                                        href={channel.href}
-                                        className="p-4 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[#355396] transition-all duration-300 shadow-sm flex items-center gap-3.5 group"
-                                    >
-                                        <div className="p-2.5 rounded-xl bg-[#355396]/10 shrink-0 group-hover:scale-110 transition-transform">
-                                            {renderContactIcon(channel.iconName)}
-                                        </div>
-                                        <div>
-                                            <span className="text-[12px] font-medium text-[var(--muted-text)] uppercase tracking-[1px] block">
-                                                {channel.label}
-                                            </span>
-                                            <span className="text-[14px] font-semibold text-[var(--foreground)] tracking-[0.5px] group-hover:text-[#355396] transition-colors">
-                                                {channel.value}
-                                            </span>
-                                        </div>
-                                    </a>
-                                ))}
+                                {/* Overlay Ambient Gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                                {/* Online Status Floating Pill */}
+                                <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[12px] font-medium tracking-[1px]">
+                                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                                    <span>{getInTouchData.supportInfo.statusBadge}</span>
+                                </div>
+
+                                {/* Bottom Overlay Info */}
+                                <div className="absolute bottom-4 left-4 right-4 z-10 text-white space-y-1">
+                                    <h3 className="text-[18px] font-semibold tracking-[0.5px]">
+                                        {getInTouchData.supportInfo.overlayTitle}
+                                    </h3>
+                                    <p className="text-[13px] text-slate-200 font-normal tracking-[0.5px]">
+                                        {getInTouchData.supportInfo.overlaySubtitle}
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Office Locations */}
-                        <div className="space-y-4 pt-4 border-t border-[var(--card-border)]">
-                            <h3 className="text-[20px] font-semibold text-[var(--foreground)] tracking-[0.5px]">
-                                Our Hub Locations
-                            </h3>
+                            {/* Support Badges & Features mapped dynamically */}
+                            <div className="space-y-3 pt-2">
+                                {getInTouchData.supportInfo.features.map((feat, idx) => {
+                                    const isGold = feat.accentHex === "#a67c00";
 
-                            <div className="space-y-3">
-                                {getInTouchData.offices.map((office) => (
-                                    <div
-                                        key={office.city}
-                                        className="p-5 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[#355396]/40 transition-all duration-300 flex flex-col space-y-2"
-                                    >
-                                        <div className="flex items-center justify-between gap-3">
-                                            <div className="flex items-center gap-2">
-                                                <MapPin className="w-4 h-4 text-[#a67c00] shrink-0" />
-                                                <h4 className="text-[16px] font-semibold text-[var(--foreground)] tracking-[0.5px]">
-                                                    {office.city}
-                                                </h4>
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className="flex items-center gap-3 text-[14px] text-[var(--foreground)] font-medium tracking-[0.5px]"
+                                        >
+                                            <div
+                                                className={`p-2 rounded-xl shrink-0 ${isGold
+                                                        ? "bg-[#a67c00]/10 text-[#a67c00]"
+                                                        : "bg-[#355396]/10 text-[#355396]"
+                                                    }`}
+                                            >
+                                                {renderSupportIcon(feat.iconName, isGold)}
                                             </div>
-
-                                            <span className="text-[11px] font-semibold tracking-[1px] uppercase bg-[#a67c00]/10 text-[#a67c00] border border-[#a67c00]/30 px-2.5 py-0.5 rounded-full shrink-0">
-                                                {office.regionTag}
-                                            </span>
+                                            <span>{feat.title}</span>
                                         </div>
-
-                                        <p className="text-[13px] text-[var(--muted-text)] font-normal leading-relaxed tracking-[0.5px] pl-6">
-                                            {office.address}
-                                        </p>
-
-                                        {office.phone && (
-                                            <p className="text-[13px] text-[#355396] font-medium tracking-[0.5px] pl-6 pt-1">
-                                                Tel: <a href={`tel:${office.phone.replace(/\s+/g, '')}`} className="hover:underline">{office.phone}</a>
-                                            </p>
-                                        )}
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
-                        </div>
 
+                        </div>
                     </div>
 
-                    {/* RIGHT SIDE: INTERACTIVE INQUIRY FORM (7 COLS)──── */}
+                    {/* RIGHT SIDE: INTERACTIVE INQUIRY FORM (7 COLS) */}
                     <div className="lg:col-span-7">
                         <div className="p-8 sm:p-10 rounded-3xl bg-[var(--card-bg)] border border-[var(--card-border)] shadow-xl relative overflow-hidden">
 
@@ -175,7 +163,7 @@ export default function GetInTouchSection() {
                                         Inquiry Received!
                                     </h3>
                                     <p className="text-[14px] text-[var(--muted-text)] font-normal leading-relaxed max-w-md mx-auto tracking-[0.5px]">
-                                        Thank you for contacting DigitalsDaddy. An engineering lead will review your project requirements and respond shortly.
+                                        Thank you for contacting DigitalsDaddy. A customer support lead will review your project requirements and reach out shortly.
                                     </p>
                                 </motion.div>
                             ) : (
