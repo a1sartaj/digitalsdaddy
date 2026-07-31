@@ -5,7 +5,7 @@ import WhoWeAreSection from "@/features/home/components/WhoWeAreSection";
 import HowWeWorkSection from "@/features/home/components/HowWeWorkSection";
 import WhyChooseUsSection from "@/features/home/components/WhyChooseUsSection";
 import TechStackSection from "@/features/home/components/TechStackSection";
-import TestimonialsSection from "@/features/home/components/Testimonials";
+import TestimonialsSection from "@/features/home/components/TestimonialsSection";
 import InsightsSection from "@/features/home/components/InsightsSection";
 import FaqSection from "@/features/home/components/FaqSection";
 import GetInTouchSection from "@/features/home/components/GetInTouchSection";

@@ -60,72 +60,69 @@ export default function Footer() {
       <div className="w-full max-w-[1600px] mx-auto px-4 lg:px-8 relative z-10 pt-16 pb-12 space-y-12">
 
         {/* 1. TOP HEADER STRIP: LOGO, TAGLINE & HEADQUARTERS LOCATION */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div className="w-full p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
 
-          {/* Brand Logo & Tagline */}
-          <div className="space-y-2 w-full max-w-lg">
-            <Link
-              href="/"
-              className="inline-block relative p-2.5 rounded-xl bg-[var(--background)] border border-white/10 shadow-sm"
-            >
+          {/* LEFT: Logo & Description (Occupies 5 Columns) */}
+          <div className="lg:col-span-5 space-y-3">
+            <Link href="/" className="inline-block p-2 rounded-xl bg-[var(--background)] border border-white/10">
               <Image
                 src={footerData.brand.logoPath}
                 alt={footerData.brand.logoAlt}
+                width={180}
+                height={48}
+                className="w-44 h-auto object-contain"
                 priority
-                width={200}
-                height={54}
-                className="w-48 h-12 object-contain"
               />
             </Link>
 
-            <p className="text-[14px] text-slate-300 font-normal leading-relaxed tracking-[0.5px]">
+            <p className="text-[14px] text-slate-300 leading-relaxed">
               {footerData.brand.description}
             </p>
           </div>
 
-          {/* Quick Contact Badges */}
-          <div className="flex flex-wrap items-center gap-6 text-[14px]">
-            <a
-              href={footerData.topBarContacts.phoneHref}
-              className="flex items-center gap-2.5 text-slate-200 hover:text-[#a67c00] transition-colors"
-            >
-              <div className="p-2 rounded-xl bg-[#355396]/30 text-[#a67c00]">
-                <Phone className="w-4 h-4" />
-              </div>
-              <span className="font-medium tracking-[0.5px]">
-                {footerData.topBarContacts.phone}
-              </span>
-            </a>
+          {/* RIGHT: Contact Stack (Occupies 7 Columns, Aligned Far Right) */}
+          <div className="lg:col-span-7 flex flex-col gap-3 text-[14px] lg:items-end">
 
-            <a
-              href={footerData.topBarContacts.emailHref}
-              className="flex items-center gap-2.5 text-slate-200 hover:text-[#a67c00] transition-colors"
-            >
-              <div className="p-2 rounded-xl bg-[#355396]/30 text-[#a67c00]">
-                <Mail className="w-4 h-4" />
-              </div>
-              <span className="font-medium tracking-[0.5px]">
-                {footerData.topBarContacts.email}
-              </span>
-            </a>
+            {/* Row 1: Phone & Email */}
+            <div className="flex flex-wrap items-center gap-5 lg:justify-end">
+              <a
+                href={footerData.topBarContacts.phoneHref}
+                className="inline-flex items-center gap-2 text-slate-200 hover:text-[#a67c00] transition-colors"
+              >
+                <div className="p-2 rounded-lg bg-[#355396]/30 text-[#a67c00]">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <span className="font-medium">{footerData.topBarContacts.phone}</span>
+              </a>
 
-            <div className="flex items-center gap-2.5 text-slate-300">
-              <div className="p-2 rounded-xl bg-[#355396]/30 text-[#a67c00]">
+              <a
+                href={footerData.topBarContacts.emailHref}
+                className="inline-flex items-center gap-2 text-slate-200 hover:text-[#a67c00] transition-colors"
+              >
+                <div className="p-2 rounded-lg bg-[#355396]/30 text-[#a67c00]">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <span className="font-medium">{footerData.topBarContacts.email}</span>
+              </a>
+            </div>
+
+            {/* Row 2: Address */}
+            <div className="inline-flex items-center gap-2 text-slate-300 lg:justify-end">
+              <div className="p-2 rounded-lg bg-[#355396]/30 text-[#a67c00]">
                 <MapPin className="w-4 h-4" />
               </div>
-              <span className="font-normal tracking-[0.5px] max-w-xs">
-                {footerData.topBarContacts.address}
-              </span>
+              <span>{footerData.topBarContacts.address}</span>
             </div>
+
           </div>
 
         </div>
 
         {/* 2. MAIN FOOTER CONTENT GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pt-4">
+        <div className="grid grid-cols-1  lg:grid-cols-12 gap-10 lg:gap-8 pt-4">
 
           {/* LEFT SIDE: DYNAMIC NAVIGATION LINK GROUPS (7 COLS) */}
-          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-8">
+          <div className="lg:col-span-7 grid grid-cols-2 lg:grid-cols-4 gap-8">
             {footerData.linkGroups.map((group) => (
               <div key={group.title} className="space-y-4">
                 <h3 className="text-[16px] font-semibold text-white tracking-[1px]">
@@ -151,9 +148,11 @@ export default function Footer() {
           </div>
 
           {/* RIGHT SIDE: SOCIALS & REGIONAL OFFICES (5 COLS) */}
+
           <div className="lg:col-span-5 space-y-6">
 
             {/* Social Links */}
+
             <div className="space-y-3">
               <span className="text-[14px] font-semibold tracking-[2px] uppercase text-[#a67c00] block">
                 Follow Us

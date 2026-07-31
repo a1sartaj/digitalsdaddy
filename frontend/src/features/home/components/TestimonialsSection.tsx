@@ -108,7 +108,7 @@ export default function TestimonialsSection() {
 
                                 <div className="relative z-10 space-y-6">
                                     {/* Card Header: AI Tag + Rating */}
-                                    <div className="flex items-center justify-between gap-3">
+                                    <div className="flex flex-wrap items-center justify-between gap-3">
                                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#a67c00]/10 border border-[#a67c00]/30 text-[#a67c00] text-[14px] font-medium tracking-[1.5px] uppercase">
                                             <Sparkles className="w-3 h-3 text-[#a67c00]" />
                                             {item.aiHighlightTag}
@@ -135,7 +135,7 @@ export default function TestimonialsSection() {
                                 </div>
 
                                 {/* Footer: Client Info & Proven Impact Metric */}
-                                <div className="relative z-10 pt-6 border-t border-[var(--card-border)] mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div className="relative z-10 pt-6 border-t border-[var(--card-border)] mt-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
 
                                     {/* Client Details */}
                                     <div className="flex items-center gap-3">

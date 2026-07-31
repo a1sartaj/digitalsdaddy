@@ -56,7 +56,7 @@ export default function BrandingSection() {
 
                 {/* ──── VIDEO PLAYER WORKSPACE ──── */}
                 <div className="max-w-5xl mx-auto">
-                    <div className="relative rounded-3xl overflow-hidden border border-[var(--card-border)] bg-black shadow-2xl group">
+                    <div className="relative rounded-3xl overflow-hidden  shadow-2xl group">
 
                         <AnimatePresence mode="wait">
                             {!isPlaying ? (
@@ -72,16 +72,16 @@ export default function BrandingSection() {
                                 >
                                     {/* Original YouTube Thumbnail */}
                                     <Image
-                                        src={originalYoutubeThumbnail}
+                                        src={brandingData.video.thumbnail ? brandingData.video.thumbnail : originalYoutubeThumbnail}
                                         alt={brandingData.video.title}
                                         fill
                                         priority
                                         unoptimized
-                                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-85 group-hover:opacity-100"
+                                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-100 group-hover:opacity-100"
                                     />
 
                                     {/* Dark Vignette Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-black/20" />
 
                                     {/* CENTER CUSTOM PLAY BUTTON OVERLAY */}
                                     <div className="relative z-10 flex flex-col items-center gap-4">

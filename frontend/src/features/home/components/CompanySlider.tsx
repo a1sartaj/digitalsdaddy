@@ -66,21 +66,20 @@ export default function Slider() {
                         {sliderData.companies.map((company, index) => (
                             <SwiperSlide key={`${company.slug}-${index}`}>
                                 {company.logo ? (
-                                    /* 1. LOGO ONLY DESIGN */
-                                    <div className="h-20 px-6 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[#355396] transition-all duration-300 shadow-sm flex items-center justify-center group cursor-pointer">
-                                        <div className="relative w-full h-15 flex items-center justify-center">
+                                    /* 1. LOGO ONLY DESIGN (Increased Height & Full-Fitting Relative Div) */
+                                    <div className="h-20   rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[#355396] transition-all duration-300 shadow-sm flex items-center justify-center group cursor-pointer">
+                                        <div className="relative w-full h-full flex items-center justify-center">
                                             <Image
                                                 src={company.logo}
                                                 alt={`${company.name} logo`}
                                                 fill
-                                                sizes="180px"
-                                                className="object-contain filter grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+                                                className="object-contain group-hover:scale-105 transition-all duration-300 p-1"
                                             />
                                         </div>
                                     </div>
                                 ) : (
                                     /* 2. TEXT & ICON FALLBACK DESIGN */
-                                    <div className="p-5 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[#355396] transition-all duration-300 shadow-sm flex items-center gap-3.5 group cursor-pointer">
+                                    <div className="h-20  p-5 rounded-2xl bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-[#355396] transition-all duration-300 shadow-sm flex items-center gap-3.5 group cursor-pointer">
                                         <div className="p-2.5 rounded-xl bg-[#355396]/10 text-[#355396] group-hover:scale-110 transition-transform flex-shrink-0">
                                             <Building2 className="w-5 h-5" />
                                         </div>

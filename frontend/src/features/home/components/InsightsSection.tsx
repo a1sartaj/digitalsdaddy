@@ -166,7 +166,7 @@ export default function InsightsSection() {
                                         </div>
                                         <div className="flex flex-col">
                                             <span className="text-[13px] font-semibold text-[var(--foreground)] tracking-[0.5px]">
-                                                {article.author.name}
+                                                {article.author.name} <span className="text-[#a67c00]" >( Author )</span>
                                             </span>
                                             <span className="text-[11px] text-[var(--muted-text)] font-normal tracking-[0.5px]">
                                                 {article.author.role}

@@ -8,6 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import logo from "@/assets/images/logo/logo.png";
 import FullScreenMenu from "./FullScreenMenu";
 import { navbarHeaderData } from "@/assets/data/navbar/navbarHeaderData";
+import FullScreenMobileMenu from "./FullScreenMobileMenu";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -30,7 +31,7 @@ export default function Navbar() {
                             alt={navbarHeaderData.logo.alt}
                             width={navbarHeaderData.logo.width}
                             height={navbarHeaderData.logo.height}
-                            className="w-24 md:w-50 h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                            className="w-40 md:w-50 h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                             priority
                         />
                         <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#a67c00] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -43,7 +44,7 @@ export default function Navbar() {
                         <button
                             type="button"
                             aria-label={navbarHeaderData.actions.search.ariaLabel}
-                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] flex items-center justify-center text-[var(--foreground)] hover:text-[#a67c00] hover:border-[#355396] hover:bg-[#355396]/10 transition-all duration-300 cursor-pointer shadow-sm active:scale-95"
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hidden md:flex items-center justify-center text-[var(--foreground)] hover:text-[#a67c00] hover:border-[#355396] hover:bg-[#355396]/10 transition-all duration-300 cursor-pointer shadow-sm active:scale-95"
                         >
                             <Search className="w-4 h-4" />
                         </button>
@@ -52,7 +53,7 @@ export default function Navbar() {
                         <Link
                             href={navbarHeaderData.actions.portal.href || "/login"}
                             aria-label={navbarHeaderData.actions.portal.ariaLabel}
-                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] flex items-center justify-center text-[var(--foreground)] hover:text-[#a67c00] hover:border-[#355396] hover:bg-[#355396]/10 transition-all duration-300 cursor-pointer shadow-sm active:scale-95"
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[var(--card-bg)] border border-[var(--card-border)] hidden md:flex items-center justify-center text-[var(--foreground)] hover:text-[#a67c00] hover:border-[#355396] hover:bg-[#355396]/10 transition-all duration-300 cursor-pointer shadow-sm active:scale-95"
                         >
                             <LogIn className="w-4 h-4" />
                         </Link>
@@ -85,6 +86,15 @@ export default function Navbar() {
             <AnimatePresence>
                 {isMenuOpen && (
                     <FullScreenMenu
+                        isOpen={isMenuOpen}
+                        onClose={() => setIsMenuOpen(false)}
+                    />
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <FullScreenMobileMenu
                         isOpen={isMenuOpen}
                         onClose={() => setIsMenuOpen(false)}
                     />

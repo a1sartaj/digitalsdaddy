@@ -15,6 +15,7 @@ import {
     Cloud,
     CheckCircle2,
     Zap,
+    ChevronDown,
 } from "lucide-react";
 import { techStackData } from "@/assets/data/home/techstack";
 
@@ -54,6 +55,10 @@ export default function TechStackSection() {
         (item) => item.isAiHighlight
     ).length;
 
+    const toggleCategory = (slug: string) => {
+        setActiveCategorySlug(slug);
+    };
+
     return (
         <section className="relative py-20 lg:py-28 overflow-hidden bg-[var(--background)] transition-colors duration-300 select-none">
 
@@ -61,7 +66,7 @@ export default function TechStackSection() {
             <div className="absolute top-1/4 left-10 w-[500px] h-[500px] bg-[#355396]/10 blur-[160px] pointer-events-none rounded-full" />
             <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#a67c00]/10 blur-[150px] pointer-events-none rounded-full" />
 
-            {/* Constraints: Max-width 1440px / max-w-360, Padding: px-4 lg:px-8 */}
+            {/* Main Container */}
             <div className="w-full max-w-[1440px] mx-auto px-4 lg:px-8 relative z-10 space-y-12 sm:space-y-16">
 
                 {/* Section Header */}
@@ -90,11 +95,117 @@ export default function TechStackSection() {
                     </p>
                 </header>
 
-                {/* ──── REDESIGNED MAIN WORKSPACE: SIDEBAR + SPOTLIGHT GRID ──── */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                {/* ──── 1. MOBILE ACCORDION VIEW (< lg) ──── */}
+                <div className="block lg:hidden space-y-3">
+                    {techStackData.categories.map((cat) => {
+                        const isSelected = cat.slug === activeCategorySlug;
+                        const catAiCount = cat.items.filter((i) => i.isAiHighlight).length;
+
+                        return (
+                            <div
+                                key={cat.slug}
+                                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${isSelected
+                                    ? "bg-[var(--card-bg)] border-[#355396] shadow-lg"
+                                    : "bg-[var(--card-bg)] border-[var(--card-border)]"
+                                    }`}
+                            >
+                                {/* Category Header Button */}
+                                <button
+                                    type="button"
+                                    onClick={() => toggleCategory(cat.slug)}
+                                    className="w-full flex items-center justify-between p-4 text-left cursor-pointer"
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <div
+                                            className={`p-2 rounded-xl transition-colors ${isSelected
+                                                ? "bg-[#355396] text-white"
+                                                : "bg-[#355396]/10 text-[#355396]"
+                                                }`}
+                                        >
+                                            {renderCategoryIcon(cat.slug)}
+                                        </div>
+                                        <span className="text-[15px] font-semibold text-[var(--foreground)] tracking-[0.5px]">
+                                            {cat.categoryName}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-2">
+                                        {catAiCount > 0 && (
+                                            <span className="truncate text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#a67c00]/10 text-[#a67c00] border border-[#a67c00]/30">
+                                                {catAiCount} AI
+                                            </span>
+                                        )}
+                                        <ChevronDown
+                                            className={`w-5 h-5 text-[var(--muted-text)] transition-transform duration-300 ${isSelected ? "rotate-180 text-[#a67c00]" : ""
+                                                }`}
+                                        />
+                                    </div>
+                                </button>
+
+                                {/* Inline Expanding Content */}
+                                <AnimatePresence initial={false}>
+                                    {isSelected && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                            className="overflow-hidden border-t border-[var(--card-border)]"
+                                        >
+                                            <div className="p-4 sm:p-6 space-y-6">
+                                                {/* Banner Category Details */}
+                                                <div className="space-y-2">
+                                                    <div className="inline-flex items-center gap-2 text-[12px] font-medium text-[#a67c00] tracking-[1.5px] uppercase">
+                                                        <Zap className="w-3.5 h-3.5 text-[#a67c00]" />
+                                                        <span>{cat.categoryBadge}</span>
+                                                    </div>
+                                                    <p className="text-[13px] text-[var(--muted-text)] leading-relaxed">
+                                                        {cat.description}
+                                                    </p>
+                                                </div>
+
+                                                {/* Tech Cards Grid */}
+                                                <div className="grid grid-cols-2 gap-3">
+                                                    {cat.items.map((tech) => (
+                                                        <div
+                                                            key={tech.name}
+                                                            className={`p-3 rounded-xl border flex flex-col items-center justify-center text-center gap-2 relative overflow-hidden ${tech.isAiHighlight
+                                                                ? "bg-gradient-to-b from-[#a67c00]/15 to-transparent border-[#a67c00]/40 text-[#a67c00]"
+                                                                : "bg-[var(--background)] border-[var(--card-border)] text-[var(--foreground)]"
+                                                                }`}
+                                                        >
+                                                            {tech.isAiHighlight ? (
+                                                                <Sparkles className="w-4 h-4 text-[#a67c00] shrink-0 animate-pulse" />
+                                                            ) : (
+                                                                <CheckCircle2 className="w-4 h-4 text-[#355396] shrink-0" />
+                                                            )}
+
+                                                            <span className="text-[13px] font-medium leading-tight">
+                                                                {tech.name}
+                                                            </span>
+
+                                                            {tech.isAiHighlight && (
+                                                                <span className="text-[9px] font-semibold uppercase bg-[#a67c00] text-white px-1.5 py-0.5 rounded-full">
+                                                                    TOP TREND
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                {/* ──── 2. DESKTOP WORKSPACE VIEW (≥ lg) ──── */}
+                <div className="hidden lg:grid grid-cols-12 gap-8 items-start">
 
                     {/* LEFT SIDEBAR: CATEGORY NAVIGATOR (4 COLS) */}
-                    <div className="lg:col-span-4 flex flex-col gap-2.5 overflow-x-auto lg:overflow-visible pb-2 no-scrollbar">
+                    <div className="col-span-4 flex flex-col gap-2.5">
                         {techStackData.categories.map((cat) => {
                             const isSelected = cat.slug === activeCategorySlug;
                             const catAiCount = cat.items.filter((i) => i.isAiHighlight).length;
@@ -105,15 +216,15 @@ export default function TechStackSection() {
                                     type="button"
                                     onClick={() => setActiveCategorySlug(cat.slug)}
                                     className={`group relative flex items-center justify-between p-4 rounded-2xl text-left transition-all duration-300 shrink-0 cursor-pointer ${isSelected
-                                            ? "bg-[#355396] text-white shadow-xl shadow-[#355396]/20 border border-[#355396]"
-                                            : "bg-[var(--card-bg)] border border-[var(--card-border)] text-[var(--muted-text)] hover:border-[#355396]/50 hover:text-[var(--foreground)]"
+                                        ? "bg-[#355396] text-white shadow-xl shadow-[#355396]/20 border border-[#355396]"
+                                        : "bg-[var(--card-bg)] border border-[var(--card-border)] text-[var(--muted-text)] hover:border-[#355396]/50 hover:text-[var(--foreground)]"
                                         }`}
                                 >
                                     <div className="flex items-center gap-3">
                                         <div
                                             className={`p-2 rounded-xl transition-colors ${isSelected
-                                                    ? "bg-white/10 text-white"
-                                                    : "bg-[#355396]/10 text-[#355396]"
+                                                ? "bg-white/10 text-white"
+                                                : "bg-[#355396]/10 text-[#355396]"
                                                 }`}
                                         >
                                             {renderCategoryIcon(cat.slug)}
@@ -126,8 +237,8 @@ export default function TechStackSection() {
                                     {catAiCount > 0 && (
                                         <span
                                             className={`text-[12px] font-medium px-2.5 py-0.5 rounded-full ${isSelected
-                                                    ? "bg-[#a67c00] text-white"
-                                                    : "bg-[#a67c00]/10 text-[#a67c00] border border-[#a67c00]/30"
+                                                ? "bg-[#a67c00] text-white"
+                                                : "bg-[#a67c00]/10 text-[#a67c00] border border-[#a67c00]/30"
                                                 }`}
                                         >
                                             {catAiCount} AI
@@ -139,7 +250,7 @@ export default function TechStackSection() {
                     </div>
 
                     {/* RIGHT DISPLAY: SPOTLIGHT BENTO BOARD (8 COLS) */}
-                    <div className="lg:col-span-8">
+                    <div className="col-span-8">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeCategory.slug}
@@ -147,16 +258,16 @@ export default function TechStackSection() {
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
                                 transition={{ duration: 0.35, ease: "easeOut" }}
-                                className="p-6 sm:p-8 rounded-3xl bg-[var(--card-bg)] border border-[var(--card-border)] shadow-xl relative overflow-hidden space-y-8"
+                                className="p-8 rounded-3xl bg-[var(--card-bg)] border border-[var(--card-border)] shadow-xl relative overflow-hidden space-y-8"
                             >
                                 {/* Category Banner Header */}
-                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[var(--card-border)]">
+                                <div className="flex items-center justify-between gap-4 pb-6 border-b border-[var(--card-border)]">
                                     <div className="space-y-1">
                                         <div className="inline-flex items-center gap-2 text-[14px] font-medium text-[#a67c00] tracking-[1.5px] uppercase">
                                             <Zap className="w-4 h-4 text-[#a67c00]" />
                                             <span>{activeCategory.categoryBadge}</span>
                                         </div>
-                                        <h3 className="text-[22px] sm:text-[26px] font-semibold text-[var(--foreground)] tracking-[1px]">
+                                        <h3 className="text-[26px] font-semibold text-[var(--foreground)] tracking-[1px]">
                                             {activeCategory.categoryName}
                                         </h3>
                                     </div>
@@ -174,15 +285,15 @@ export default function TechStackSection() {
                                 </p>
 
                                 {/* Tech Cards Grid */}
-                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     {activeCategory.items.map((tech) => (
                                         <motion.div
                                             key={tech.name}
                                             whileHover={{ y: -4, scale: 1.02 }}
                                             transition={{ duration: 0.2 }}
                                             className={`p-4 rounded-2xl border transition-all duration-300 flex flex-col items-center justify-center text-center gap-2.5 relative overflow-hidden group ${tech.isAiHighlight
-                                                    ? "bg-gradient-to-b from-[#a67c00]/15 to-transparent border-[#a67c00]/40 text-[#a67c00] shadow-sm"
-                                                    : "bg-[var(--background)] border-[var(--card-border)] text-[var(--foreground)] hover:border-[#355396] hover:shadow-md"
+                                                ? "bg-gradient-to-b from-[#a67c00]/15 to-transparent border-[#a67c00]/40 text-[#a67c00] shadow-sm"
+                                                : "bg-[var(--background)] border-[var(--card-border)] text-[var(--foreground)] hover:border-[#355396] hover:shadow-md"
                                                 }`}
                                         >
                                             {tech.isAiHighlight ? (
@@ -209,7 +320,7 @@ export default function TechStackSection() {
 
                 </div>
 
-                {/* Standard CTA Button: Uses px-8 py-4 padding */}
+                {/* Section CTA Button */}
                 <div className="text-center pt-4">
                     <Link
                         href={techStackData.cta.href}

@@ -9,8 +9,8 @@ export interface MegaMenuCategory {
 }
 
 export interface NavItem {
-  Id?: number; // ASP.NET MS SQL standard Int Primary Key mapping placeholder
-  slug: string; // Unique string locator
+  Id?: number;
+  slug: string;
   label: string;
   type: "dropdown" | "link";
   href?: string;
@@ -29,6 +29,10 @@ export interface MenuContactDirectory {
     display: string;
     raw: string;
   };
+  email: {
+    display: string;
+    href: string;
+  };
   website: {
     display: string;
     href: string;
@@ -40,7 +44,6 @@ export interface MenuContactDirectory {
 }
 
 export interface MenuData {
-  defaultActiveSlug: string;
   navigation: NavItem[];
   contactDirectory: MenuContactDirectory;
   footer: {
@@ -55,7 +58,8 @@ export const navbarData: NavItem[] = [
     label: "AI & Emerging Tech",
     type: "dropdown",
     href: "/ai-solutions",
-    description: "Cutting-edge generative AI, machine learning automation, and predictive data science solutions.",
+    description:
+      "Cutting-edge generative AI, machine learning automation, and predictive data science solutions.",
     actionLabel: "EXPLORE AI STACK",
     menuData: [
       {
@@ -78,11 +82,57 @@ export const navbarData: NavItem[] = [
     ],
   },
   {
+    slug: "marketing-branding",
+    label: "Marketing & Branding",
+    type: "dropdown",
+    href: "/marketing",
+    description:
+      "Data-driven performance campaigns, search engine optimization, PR strategies, and social growth.",
+    actionLabel: "BOOST YOUR GROWTH",
+    menuData: [
+      {
+        title: "Digital Marketing",
+        links: [
+          {
+            label: "PERFORMANCE & LEAD ACQUISITION",
+            href: "/services/performance-marketing",
+          },
+          {
+            label: "SEO & CONVERSION RATE OPTIMIZATION",
+            href: "/services/seo-cro",
+          },
+          {
+            label: "SOCIAL & INFLUENCER MARKETING",
+            href: "/services/social-influencer-marketing",
+          },
+        ],
+      },
+      {
+        title: "PR & Branding",
+        links: [
+          {
+            label: "PR & BRANDING STRATEGY",
+            href: "/services/pr-brand-strategy",
+          },
+          {
+            label: "ONLINE REPUTATION MANAGEMENT",
+            href: "/services/social-influencer-marketing",
+          },
+          {
+            label: "BRAND DESIGN & VISUAL IDENTITY",
+            href: "/services/ui-ux-design",
+          },
+        ],
+      },
+    ],
+  },
+  {
     slug: "web-app-solutions",
     label: "Web & App Solutions",
     type: "dropdown",
     href: "/solutions",
-    description: "End-to-end full-stack web engineering, cross-platform mobile apps, UI/UX systems, and headless commerce.",
+    description:
+      "End-to-end full-stack web engineering, cross-platform mobile apps, UI/UX systems, and headless commerce.",
     actionLabel: "VIEW ALL SOLUTIONS",
     menuData: [
       {
@@ -118,42 +168,12 @@ export const navbarData: NavItem[] = [
     ],
   },
   {
-    slug: "growth-marketing",
-    label: "Growth & Performance Marketing",
-    type: "dropdown",
-    href: "/marketing",
-    description: "Data-driven performance campaigns, search engine optimization, PR strategies, and social growth.",
-    actionLabel: "BOOST YOUR GROWTH",
-    menuData: [
-      {
-        title: "Acquisition & Strategy",
-        links: [
-          {
-            label: "PERFORMANCE & LEAD ACQUISITION",
-            href: "/services/performance-marketing",
-          },
-          {
-            label: "SEO & CONVERSION RATE OPTIMIZATION",
-            href: "/services/seo-cro",
-          },
-          {
-            label: "PR, BRANDING & REPUTATION",
-            href: "/services/pr-brand-strategy",
-          },
-          {
-            label: "SOCIAL & INFLUENCER MARKETING",
-            href: "/services/social-influencer-marketing",
-          },
-        ],
-      },
-    ],
-  },
-  {
     slug: "hire-tech-talent",
     label: "Hire Dedicated Tech",
     type: "dropdown",
     href: "/hire-tech",
-    description: "Extend your engineering team on-demand with senior full-stack developers, product designers, and API engineers.",
+    description:
+      "Extend your engineering team on-demand with senior full-stack developers, product designers, and API engineers.",
     actionLabel: "HIRE TALENT NOW",
     menuData: [
       {
@@ -175,10 +195,41 @@ export const navbarData: NavItem[] = [
       },
     ],
   },
+  {
+    slug: "industries",
+    label: "Industries",
+    type: "dropdown",
+    href: "/industries",
+    description:
+      "Specialized digital architecture and growth solutions engineered for specific enterprise verticals.",
+    actionLabel: "EXPLORE INDUSTRIES",
+    menuData: [
+      {
+        title: "Sectors We Serve",
+        links: [
+          {
+            label: "FINTECH & BANKING SYSTEMS",
+            href: "/industries/fintech",
+          },
+          {
+            label: "HEALTHCARE & MEDTECH",
+            href: "/industries/healthcare",
+          },
+          {
+            label: "E-COMMERCE & RETAIL",
+            href: "/industries/ecommerce",
+          },
+          {
+            label: "REAL ESTATE & PROPTECH",
+            href: "/industries/real-estate",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export const menuOverlayData: MenuData = {
-  defaultActiveSlug: "ai-emerging-tech",
   navigation: navbarData,
   contactDirectory: {
     title: "HEAD OFFICE DIRECTORY",
@@ -187,8 +238,12 @@ export const menuOverlayData: MenuData = {
       address: "BVM Marg, DLF Phase 2, Sector 25",
     },
     phone: {
-      display: "+91 9818286609",
+      display: "+91 98182 86609",
       raw: "+919818286609",
+    },
+    email: {
+      display: "support@digitalsdaddy.com",
+      href: "mailto:support@digitalsdaddy.com",
     },
     website: {
       display: "www.digitalsdaddy.com",
@@ -200,7 +255,7 @@ export const menuOverlayData: MenuData = {
     },
   },
   footer: {
-    copyright: `© ${new Date().getFullYear()} DigitalsDaddy. All Rights Reserved.`,
+    copyright: "© 2026 DigitalsDaddy. All Rights Reserved.",
     links: [
       { label: "Privacy Policy", href: "/privacy-policy" },
       { label: "Terms of Service", href: "/terms" },

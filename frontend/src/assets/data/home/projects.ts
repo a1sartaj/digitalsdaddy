@@ -31,9 +31,9 @@ export const projectsSectionData: ProjectsSectionData = {
     slug: "featured-delivered-projects",
     badge: "FEATURED CASE STUDIES",
     title: {
-        prefix: "Recent Projects We Have",
-        highlight: "Successfully Delivered",
-        suffix: "For Clients",
+        prefix: "Recent",
+        highlight: "Projects",
+        suffix: "",
     },
     subtitle:
         "Explore how we engineer custom AI platforms, microservice web applications, and scalable mobile products built for speed and measurable business growth.",

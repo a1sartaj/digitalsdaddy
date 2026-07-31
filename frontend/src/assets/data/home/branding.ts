@@ -13,6 +13,7 @@ export interface VideoBrandingData {
   video: {
     youtubeId: string;
     title: string;
+    thumbnail?: string
   };
   features: {
     title: string;
@@ -27,8 +28,8 @@ export interface VideoBrandingData {
 export const brandingData: VideoBrandingData = {
   slug: "branding-video-showcase",
   badge: {
-    label: "BRAND SHOWCASE",
-    aiHighlight: "WATCH OUR REEL ⚡",
+    label: "BRANDING",
+    aiHighlight: "⚡",
   },
   title: {
     prefix: "How We Elevate Brands Through",
@@ -40,6 +41,7 @@ export const brandingData: VideoBrandingData = {
   video: {
     youtubeId: "l-S2Y3SF3mM", // Replace with your actual YouTube Video ID
     title: "DigitalsDaddy 2026 Agency Vision & Showcase",
+    thumbnail: "/images/branding-thumbnail.jpg"
   },
   features: [
     {

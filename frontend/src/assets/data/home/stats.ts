@@ -22,10 +22,6 @@ export interface StatsData {
     };
     subtitle: string;
     metrics: StatMetric[];
-    cta: {
-        label: string;
-        href: string;
-    };
 }
 
 export const statsData: StatsData = {
@@ -79,8 +75,4 @@ export const statsData: StatsData = {
             accentHex: "#355396",
         },
     ],
-    cta: {
-        label: "START YOUR PROJECT WITH US",
-        href: "/contact",
-    },
 };

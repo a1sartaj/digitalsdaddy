@@ -208,17 +208,6 @@ export default function StatsSection() {
                     })}
                 </motion.div>
 
-                {/* Standard CTA Button: Uses px-8 py-4 padding */}
-                <div className="text-center pt-4">
-                    <Link
-                        href={statsData.cta.href}
-                        className="group relative overflow-hidden inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-[#a67c00] hover:bg-[#8e6900] text-white font-semibold text-[14px] tracking-[2px] uppercase shadow-lg shadow-[#a67c00]/20 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
-                    >
-                        <span>{statsData.cta.label}</span>
-                        <ArrowRight className="w-4 h-4 text-white transform transition-transform duration-300 group-hover:translate-x-1" />
-                    </Link>
-                </div>
-
             </div>
         </section>
     );

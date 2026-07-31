@@ -12,6 +12,8 @@ import {
     ShieldCheck,
 } from "lucide-react";
 import { getInTouchData } from "@/assets/data/home/getintouch";
+import axios from "axios";
+import homeServices from "../services/home.services";
 
 // Dynamic Support Feature Icon Switcher
 const renderSupportIcon = (iconName: string, isGold: boolean) => {
@@ -41,9 +43,23 @@ export default function GetInTouchSection() {
 
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitted(true);
+        try {
+
+            const response = await homeServices.submitContactForm(formData);
+            setIsSubmitted(true)
+            setFormData({
+                fullName: "",
+                email: "",
+                phone: "",
+                service: getInTouchData.servicesList[0],
+                message: "",
+            })
+
+        } catch (error: any) {
+            console.log(error?.response?.data.message || "Failed to submit form")
+        }
     };
 
     return (
@@ -131,8 +147,8 @@ export default function GetInTouchSection() {
                                         >
                                             <div
                                                 className={`p-2 rounded-xl shrink-0 ${isGold
-                                                        ? "bg-[#a67c00]/10 text-[#a67c00]"
-                                                        : "bg-[#355396]/10 text-[#355396]"
+                                                    ? "bg-[#a67c00]/10 text-[#a67c00]"
+                                                    : "bg-[#355396]/10 text-[#355396]"
                                                     }`}
                                             >
                                                 {renderSupportIcon(feat.iconName, isGold)}
